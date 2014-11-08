@@ -14,7 +14,7 @@ module Jarvis
       end
 
       def random
-        @response = HTTParty.get("#{host}#{endpoint}random?api_key=#{API_KEY}#{additional_params}") 
+        @response = HTTParty.get("#{host}#{endpoint}random?api_key=#{API_KEY}#{additional_params}")
         @link = @response.parsed_response["data"]["image_url"]
         self
       end
@@ -28,9 +28,9 @@ module Jarvis
       end
 
 private
- 
+
     def additional_params
-      case @text
+      case text
       when /.*(cat|kitty|Cat|CAT|KITTY|Kitty).*/
         "&tag=cat"
       when /.*(sloth|Sloth|SLOTH).*/

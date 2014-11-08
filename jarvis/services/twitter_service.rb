@@ -2,7 +2,7 @@ module Jarvis
   module Services
     class TwitterService < BaseService
 
-      TOKEN = ENV["TWITTER_TOKEN"]
+      TOKEN = ENV["SLACK_TOKEN"]
       HANDLE = ENV["TWITTER_HANDLE"]
       CONSUMER_KEY = ENV["TWITTER_CONSUMER_KEY"]
       CONSUMER_SECRET = ENV["TWITTER_CONSUMER_SECRET"]
@@ -28,10 +28,10 @@ private
 
       def get_twitter
         client = Twitter::REST::Client.new do |config|
-          config.consumer_key        = CONSUMER_KEY 
-          config.consumer_secret     = CONSUMER_SECRET 
-          config.access_token        = ACCESS_TOKEN 
-          config.access_token_secret = TOKEN_SECRET 
+          config.consumer_key        = CONSUMER_KEY
+          config.consumer_secret     = CONSUMER_SECRET
+          config.access_token        = ACCESS_TOKEN
+          config.access_token_secret = TOKEN_SECRET
         end
         client
       end
@@ -45,7 +45,7 @@ private
       def request
         [token, channel, count].join("&")
       end
-      
+
       def host
         "https://slack.com/api/"
       end
@@ -59,7 +59,7 @@ private
       end
 
       def channel
-        "channel=C02RHLGMS"
+        "channel=#{channel_id}"
       end
 
       def count

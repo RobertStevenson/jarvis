@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Jarvis::Interpreter do
 
   context "Service Routing" do
-  
+
     describe "Routes gif requests to the GIF service" do
       let(:params) { slack_outgoing_message(text: "Jarvis, a gif please") }
       subject { described_class.new(params) }
@@ -21,7 +21,7 @@ describe Jarvis::Interpreter do
     end
 
     describe "Routes success kid requests to the MemeGenerator service" do
-      let(:params) { slack_outgoing_message(text: "Jarvis, success kid") }
+      let(:params) { slack_outgoing_message(text: "Jarvis, success kid:") }
       subject { described_class.new(params) }
       it "Returns the MemeGeneratorService constant" do
         expect(subject.determine_service).to eq Jarvis::Services::MemeGeneratorService
@@ -29,7 +29,7 @@ describe Jarvis::Interpreter do
     end
 
     describe "Routes Success Kid requests to the MemeGenerator service" do
-      let(:params) { slack_outgoing_message(text: "Jarvis, Success Kid") }
+      let(:params) { slack_outgoing_message(text: "Jarvis, Success Kid:") }
       subject { described_class.new(params) }
       it "Returns the MemeGeneratorService constant" do
         expect(subject.determine_service).to eq Jarvis::Services::MemeGeneratorService
@@ -49,6 +49,14 @@ describe Jarvis::Interpreter do
       subject { described_class.new(params) }
       it "Returns the FactService constant" do
         expect(subject.determine_service).to eq Jarvis::Services::RudeService
+      end
+    end
+
+    describe "Route dice rolls to Dice Service" do
+      let(:params) { slack_outgoing_message(text: "Jarvis, roll 2d20") }
+      subject { described_class.new(params) }
+      it "Returns the DiceService constant" do
+        expect(subject.determine_service).to eq Jarvis::Services::DiceService
       end
     end
   end
